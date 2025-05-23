@@ -3,7 +3,7 @@ import { CreateUserInput, UserRole } from "../interfaces/user.interface";
 import { LoginInput } from "../validations/login.validations";
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://turbo-dollop-w6gr66rp5jqh54j6-3000.app.github.dev/api/v1/",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -22,5 +22,5 @@ export const login = async (data: LoginInput) => {
 
 export const getUsersRoles = async (): Promise<UserRole[]> => {
   const response = await API.get("user/roles");
-  return [{ roleId: 1, role: "admin" }];
+  return response.data;
 };
