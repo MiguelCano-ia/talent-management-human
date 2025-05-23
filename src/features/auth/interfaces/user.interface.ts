@@ -6,7 +6,7 @@ export interface CreateUserInput {
   phone: string;
   identification: string;
   address: string;
-  account: string;
+  account?: string;
   roleId: number;
   branchId: number;
   statusId: number;
@@ -18,3 +18,8 @@ export interface UserRole {
   roleId: number;
   role: string;
 }
+
+export interface UserState {
+  stateId: number;
+  state: string;
+};

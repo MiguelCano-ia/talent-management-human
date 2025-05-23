@@ -23,6 +23,9 @@ import {
   createUserSchema,
 } from "../validations/user.validations";
 import { useGetRoles } from "../hooks/useGetRoles";
+import { useGetBranchOfOffices } from "../hooks/useBranchOfOffice";
+import { v4 as uuid } from 'uuid';
+import { useGetMeansOfPayments } from "../hooks/useMeansOfPayment";
 
 export function RegisterForm() {
   const [isVirtual, setIsVirtual] = useState(false);
@@ -56,12 +59,15 @@ export function RegisterForm() {
   const mutation = useRegisterUser();
 
   const onSubmit = (data: CreateUserInput) => {
+    console.log(data);
     mutation.mutate({ ...data, isVirtual });
   };
 
   const { data: roles = [] } = useGetRoles();
 
-  console.log(roles);
+  const { data: brachOfOffices = [] } = useGetBranchOfOffices();
+
+  const { data: meansOfPayments = [] } = useGetMeansOfPayments();
 
   return (
     <Card className="max-w-3xl w-full mx-auto mt-10">
@@ -232,7 +238,6 @@ export function RegisterForm() {
                 Rol
               </Label>
               <Select
-                defaultValue="3"
                 onValueChange={(val) => setValue("roleId", Number(val))}
               >
                 <SelectTrigger>
@@ -258,52 +263,23 @@ export function RegisterForm() {
                 Filial
               </Label>
               <Select
-                defaultValue="1"
                 onValueChange={(val) => setValue("branchId", Number(val))}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecciona una filial" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem
-                    value="1"
-                    className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
-                  >
-                    Sucursal 1
-                  </SelectItem>
-                  <SelectItem
-                    value="2"
-                    className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
-                  >
-                    Sucursal 2
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="statusId" className="mb-2">
-                Estado Persona
-              </Label>
-              <Select
-                defaultValue="1"
-                onValueChange={(val) => setValue("statusId", Number(val))}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecciona un estado" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value="1"
-                    className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
-                  >
-                    Activo
-                  </SelectItem>
-                  <SelectItem
-                    value="2"
-                    className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
-                  >
-                    Inactivo
-                  </SelectItem>
+                  {brachOfOffices.map((item) => {
+                    return (
+                      <SelectItem
+                        key={uuid()}
+                        value={String(item.branchOfOfficeId) || '1'}
+                        className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
+                      >
+                        {item.branchOfOffice}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </div>
@@ -312,7 +288,6 @@ export function RegisterForm() {
                 Medio de Pago
               </Label>
               <Select
-                defaultValue="1"
                 onValueChange={(val) =>
                   setValue("paymentMethodId", Number(val))
                 }
@@ -321,18 +296,17 @@ export function RegisterForm() {
                   <SelectValue placeholder="Selecciona un medio de pago" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem
-                    value="1"
-                    className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
-                  >
-                    Transferencia
-                  </SelectItem>
-                  <SelectItem
-                    value="2"
-                    className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
-                  >
-                    Cheque
-                  </SelectItem>
+                  {meansOfPayments.map((item) => {
+                    return (
+                      <SelectItem
+                        key={uuid()}
+                        value={String(item.meansOfPaymentId) || "1"}
+                        className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
+                      >
+                        {item.meansOfPayment}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </div>
@@ -354,6 +328,7 @@ export function RegisterForm() {
             </Button>
             <Button
               type="submit"
+              onClick={handleSubmit(onSubmit)}
               disabled={mutation.isPending}
               className="bg-primary text-white hover:bg-primary/90 cursor-pointer"
             >

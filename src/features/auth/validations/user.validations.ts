@@ -8,7 +8,7 @@ export const createUserSchema = z.object({
   phone: z.string().min(10, { message: "El teléfono debe tener al menos 10 caracteres" }),
   identification: z.string().min(6, { message: "La identificación no es válida" }),
   address: z.string().min(1, { message: "La dirección es requerida" }),
-  account: z.string().min(1, { message: "La cuenta es requerida" }),
+  account: z.string().min(1, { message: "La cuenta es requerida" }).optional(),
   roleId: z.number().min(1, { message: "El rol es requerido" }),
   branchId: z.number().min(1, { message: "La filial es requerida" }),
   statusId: z.number().min(1, { message: "El estado es requerido" }),
