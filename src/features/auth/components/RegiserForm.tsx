@@ -59,8 +59,6 @@ export function RegisterForm() {
     mutation.mutate({ ...data, isVirtual });
   };
 
-  console.log(useGetRoles());
-
   const { data: roles = [] } = useGetRoles();
 
   console.log(roles);
