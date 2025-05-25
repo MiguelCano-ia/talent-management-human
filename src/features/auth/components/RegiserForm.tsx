@@ -27,6 +27,17 @@ import { useGetBranchOfOffices } from "../hooks/useBranchOfOffice";
 import { v4 as uuid } from 'uuid';
 import { useGetMeansOfPayments } from "../hooks/useMeansOfPayment";
 
+const identifications = [
+  {
+    identificationId: 1,
+    identification: "Cédula de Ciudadanía",
+  },
+  {
+    identificationId: 2,
+    identification: "Pasaporte",
+  },
+];
+
 export function RegisterForm() {
   const [isVirtual, setIsVirtual] = useState(false);
 
@@ -46,11 +57,11 @@ export function RegisterForm() {
       phone: "",
       identification: "",
       address: "",
-      account: "",
+      acount: "",
       roleId: 3,
-      branchId: 1,
-      statusId: 1,
-      paymentMethodId: 1,
+      branchOficeId: 1,
+      meansOfPayment: 1,
+      identificationId: 1,
       isVirtual: false,
     },
     mode: "onChange",
@@ -59,8 +70,7 @@ export function RegisterForm() {
   const mutation = useRegisterUser();
 
   const onSubmit = (data: CreateUserInput) => {
-    console.log(data);
-    mutation.mutate({ ...data, isVirtual });
+    mutation.mutate({ ...data, phone: +data.phone, isVirtual });
   };
 
   const { data: roles = [] } = useGetRoles();
@@ -195,6 +205,30 @@ export function RegisterForm() {
                 </p>
               )}
             </div>
+            <div>
+              <Label htmlFor="identificationId" className="mb-2">
+                Tipo de Identificación
+              </Label>
+              <Select
+                onValueChange={(val) => setValue("identificationId", Number(val))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecciona un tipo de identificación" />
+                </SelectTrigger>
+                <SelectContent>
+                  {identifications.map((item) => {
+                    return (
+                      <SelectItem
+                        key={uuid()}
+                        value={String(item.identificationId) || "1"}
+                      >
+                        {item.identification}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="md:col-span-2">
               <Label htmlFor="address" className="mb-2">
                 Dirección
@@ -215,21 +249,21 @@ export function RegisterForm() {
               )}
             </div>
             <div>
-              <Label htmlFor="account" className="mb-2">
+              <Label htmlFor="acount" className="mb-2">
                 Cuenta Bancaria
               </Label>
               <Input
-                {...register("account")}
-                id="account"
+                {...register("acount")}
+                id="acount"
                 placeholder="Ingrese su cuenta bancaria"
                 onChange={(e) => {
-                  setValue("account", e.target.value);
-                  clearErrors("account");
+                  setValue("acount", e.target.value);
+                  clearErrors("acount");
                 }}
               />
-              {errors.account && (
+              {errors.acount && (
                 <p className="text-destructive text-sm">
-                  {errors.account.message}
+                  {errors.acount.message}
                 </p>
               )}
             </div>
@@ -248,8 +282,7 @@ export function RegisterForm() {
                     return (
                       <SelectItem
                         key={role.roleId}
-                        value={String(role.role)}
-                        className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
+                        value={String(role.roleId)}
                       >
                         {role.role}
                       </SelectItem>
@@ -259,11 +292,11 @@ export function RegisterForm() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="branchId" className="mb-2">
+              <Label htmlFor="branchOficeId" className="mb-2">
                 Filial
               </Label>
               <Select
-                onValueChange={(val) => setValue("branchId", Number(val))}
+                onValueChange={(val) => setValue("branchOficeId", Number(val))}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecciona una filial" />
@@ -274,7 +307,6 @@ export function RegisterForm() {
                       <SelectItem
                         key={uuid()}
                         value={String(item.branchOfOfficeId) || '1'}
-                        className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
                       >
                         {item.branchOfOffice}
                       </SelectItem>
@@ -284,12 +316,12 @@ export function RegisterForm() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="paymentMethodId" className="mb-2">
+              <Label htmlFor="meansOfPayment" className="mb-2">
                 Medio de Pago
               </Label>
               <Select
                 onValueChange={(val) =>
-                  setValue("paymentMethodId", Number(val))
+                  setValue("meansOfPayment", Number(val))
                 }
               >
                 <SelectTrigger>
@@ -301,7 +333,6 @@ export function RegisterForm() {
                       <SelectItem
                         key={uuid()}
                         value={String(item.meansOfPaymentId) || "1"}
-                        className="data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground transition-colors duration-100"
                       >
                         {item.meansOfPayment}
                       </SelectItem>

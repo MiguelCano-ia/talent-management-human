@@ -3,14 +3,14 @@ export interface CreateUserInput {
   lastName: string;
   email: string;
   password: string;
-  phone: string;
+  phone: number;
   identification: string;
   address: string;
-  account?: string;
+  acount?: string;
   roleId: number;
-  branchId: number;
-  statusId: number;
-  paymentMethodId: number;
+  branchOficeId: number;
+  meansOfPayment: number;
+  identificationId: number;
   isVirtual: boolean;
 }
 
