@@ -26,6 +26,7 @@ import { useGetRoles } from "../hooks/useGetRoles";
 import { useGetBranchOfOffices } from "../hooks/useBranchOfOffice";
 import { v4 as uuid } from 'uuid';
 import { useGetMeansOfPayments } from "../hooks/useMeansOfPayment";
+import { useRouter } from "next/navigation";
 
 const identifications = [
   {
@@ -78,6 +79,8 @@ export function RegisterForm() {
   const { data: brachOfOffices = [] } = useGetBranchOfOffices();
 
   const { data: meansOfPayments = [] } = useGetMeansOfPayments();
+
+  const router = useRouter();
 
   return (
     <Card className="max-w-3xl w-full mx-auto mt-10">
@@ -354,7 +357,7 @@ export function RegisterForm() {
           </div>
           <Separator />
           <div className="flex justify-end gap-2">
-            <Button variant="outline" type="button" className="cursor-pointer">
+            <Button variant="outline" type="button" className="cursor-pointer" onClick={() => router.back()}>
               Cancelar
             </Button>
             <Button
