@@ -5,6 +5,11 @@ import { redirect } from 'next/navigation'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await getUser()
+
+  if (user === null) {
+    redirect("/auth/login")
+  }
+
   if (user.roleId !== 4) {
     redirect("/employee/dashboard")
   }
