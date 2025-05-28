@@ -1,6 +1,5 @@
-
-export default function Page() {
+export default async function Page() {
   return (
-    <h2 className="text-2xl font-bold text-foreground">Bienvenido al panel</h2>
+    <h2 className="text-xl font-bold text-foreground">Bienvenido al panel</h2>
   );
 }

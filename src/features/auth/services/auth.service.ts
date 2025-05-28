@@ -1,4 +1,4 @@
-"use server"
+"use client"
 
 import { CreateUserInput, UserRole } from "../interfaces/user.interface";
 import { LoginInput } from "../validations/login.validations";

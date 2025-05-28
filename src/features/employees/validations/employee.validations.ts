@@ -7,7 +7,7 @@ export const employeeSchema = z.object({
   phone: z.string(),
   identification: z.string(),
   isVirtual: z.boolean(),
-  role: z.string(),
+  roleId: z.number(),
   status: z.string(),
   createdAt: z.string(),
 })
