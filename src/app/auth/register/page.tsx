@@ -5,6 +5,10 @@ import { redirect } from "next/navigation";
 export default async function Page() {
   const user = await getUser()
 
+  if (user === null) {
+    redirect("/auth/login")
+  }
+
   if (user.roleId !== 4) {
     redirect("/employee/dashboard")
   }
