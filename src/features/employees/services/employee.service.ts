@@ -1,9 +1,9 @@
-'use server'
+'use server'  
 
-import { API } from '@/config/api'
 import { Employee } from '../validations/employee.validations'
+import { APIAuth } from '@/config/authorization.api'
 
 export const getEmployees = async (): Promise<Employee[]> => {
-  const response = await API.get('user/all')
+  const response = await APIAuth.get('user/all')
   return response.data
 }

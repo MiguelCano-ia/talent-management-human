@@ -1,4 +1,4 @@
-'use server'
+'use client'
 
 import { API } from '@/config/api'
 import { MeansOfPayment } from '../validations/means-of-payment.validations'

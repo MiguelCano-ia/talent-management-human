@@ -11,9 +11,9 @@ export function EmployeeList() {
   return (
     <div className="max-w-7xl mx-auto mt-10 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-primary">Empleados</h2>
+        <h2 className="text-xl font-bold text-primary">Empleados</h2>
         <Link href="/auth/register">
-          <Button className="bg-primary text-secondary">Agregar empleado</Button>
+          <Button className="bg-primary text-secondary cursor-pointer">Agregar empleado</Button>
         </Link>
       </div>
 
@@ -33,20 +33,18 @@ export function EmployeeList() {
                 <th className="px-4 py-2">Teléfono</th>
                 <th className="px-4 py-2">Identificación</th>
                 <th className="px-4 py-2">Rol</th>
-                <th className="px-4 py-2">Estado</th>
                 <th className="px-4 py-2">Virtual</th>
                 <th className="px-4 py-2">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {data?.map((emp) => (
-                <tr key={emp.id} className="border-t">
+              {data?.map((emp, idx) => (
+                <tr key={idx} className="border-t">
                   <td className="px-4 py-2">{emp.name}</td>
                   <td className="px-4 py-2">{emp.email}</td>
                   <td className="px-4 py-2">{emp.phone}</td>
                   <td className="px-4 py-2">{emp.identification}</td>
-                  <td className="px-4 py-2">{emp.role}</td>
-                  <td className="px-4 py-2">{emp.status}</td>
+                  <td className="px-4 py-2">{emp.roleId === 4 ? "Administrador" : emp.roleId === 3 ? "Empleado" : "Reclutador"}</td>
                   <td className="px-4 py-2">
                     {emp.isVirtual ? 'Sí' : 'No'}
                   </td>

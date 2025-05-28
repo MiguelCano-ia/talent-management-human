@@ -1,6 +1,16 @@
 import { LoginForm } from "@/features/auth/components/LoginForm"
+import { getUser } from "@/helpers/session"
+import { redirect } from "next/navigation"
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const user = await getUser()
+
+  if (user.roleId !== 4) {
+    redirect("/employee/dashboard")
+  } else {
+    redirect("/dashboard")
+  }
+
   return (
     <main className="min-h-screen flex flex-col md:flex-row">
       <div className="hidden md:flex md:w-1/2 xl:w-2/3 bg-primary  items-center justify-center p-8">
