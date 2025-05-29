@@ -71,7 +71,7 @@ export function LoginForm() {
         type="button"
         variant="outline"
         className="w-full flex items-center justify-center cursor-pointer hover:bg-background/50"
-        onClick={() => (window.location.href = "http://localhost:3000/api/v1/auth/google/login")}
+        onClick={() => (window.location.href = "http://localhost:3001/api/v1/auth/google/login")}
       >
         <GoogleIcon />
         Ingresar con Google
