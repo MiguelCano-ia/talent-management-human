@@ -7,3 +7,14 @@ export const API = axios.create({
   },
   withCredentials: true,
 })
+
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const response = error.response;
+    if(response && response.status === 401) {
+      console.log("Unauthorized access - redirecting to login")
+    }
+    return Promise.reject(error)
+  }
+)
