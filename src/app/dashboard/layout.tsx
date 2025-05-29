@@ -1,3 +1,4 @@
+import { Roles } from '@/features/auth/roles/roles.enum'
 import { Sidebar } from '@/shared/admin/components/sidebar/SideBar'
 import { Header } from '@/shared/admin/components/header/Header'
 import { getUser } from '@/helpers/session'
@@ -10,7 +11,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     redirect("/auth/login")
   }
 
-  if (user.roleId !== 4) {
+  if (user.roleId !== Roles.Administrativo) {
     redirect("/employee/dashboard")
   }
 

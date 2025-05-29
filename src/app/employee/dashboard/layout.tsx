@@ -1,3 +1,4 @@
+import { Roles } from '@/features/auth/roles/roles.enum'
 import { Header } from "@/shared/employee/components/header/Header";
 import { Sidebar } from "@/shared/employee/components/sidebar/SideBar";
 import { getUser } from "@/helpers/session";
@@ -10,7 +11,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     redirect("/auth/login")
   }
 
-  if (user.roleId !== 3) {
+  if (user.roleId !== Roles.Empleado) {
     redirect("/dashboard")
   }
 
