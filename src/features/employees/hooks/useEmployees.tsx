@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { getEmployees } from '../services/employee.service'
+import { EmployeeInput } from '../validations/employee.validations'
 
-export function useEmployees() {
+export function useEmployees(data: EmployeeInput) {
   return useQuery({
-    queryKey: ['employees'],
-    queryFn: getEmployees,
+    queryKey: ['employeesFilters', data],
+    queryFn: ()=> getEmployees(data),
+    
   })
 }

@@ -12,4 +12,15 @@ export const employeeSchema = z.object({
   createdAt: z.string(),
 })
 
+export const employeeInputSchema = z.object({
+  name: z.string().optional(),
+  isVirtual: z.boolean().optional(),
+  beforeDate: z.string().optional(),
+  afterDate: z.string().optional(),
+  personState: z.string().optional(),
+  roleId: z.number().optional(),
+})
+
 export type Employee = z.infer<typeof employeeSchema>
+
+export type EmployeeInput = z.infer<typeof employeeInputSchema>

@@ -27,17 +27,7 @@ import { useGetBranchOfOffices } from "../hooks/useBranchOfOffice";
 import { v4 as uuid } from 'uuid';
 import { useGetMeansOfPayments } from "../hooks/useMeansOfPayment";
 import { useRouter } from "next/navigation";
-
-const identifications = [
-  {
-    identificationId: 1,
-    identification: "Cédula de Ciudadanía",
-  },
-  {
-    identificationId: 2,
-    identification: "Pasaporte",
-  },
-];
+import { useGetIdentifications } from "../hooks/useIdentificationType";
 
 export function RegisterForm() {
   const [isVirtual, setIsVirtual] = useState(false);
@@ -79,6 +69,8 @@ export function RegisterForm() {
   const { data: brachOfOffices = [] } = useGetBranchOfOffices();
 
   const { data: meansOfPayments = [] } = useGetMeansOfPayments();
+
+  const { data: identifications = [] } = useGetIdentifications();
 
   const router = useRouter();
 
@@ -223,7 +215,7 @@ export function RegisterForm() {
                     return (
                       <SelectItem
                         key={uuid()}
-                        value={String(item.identificationId) || "1"}
+                        value={String(item.identificationTypeId) || "1"}
                       >
                         {item.identification}
                       </SelectItem>
