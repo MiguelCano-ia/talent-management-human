@@ -1,7 +1,8 @@
-import { Sidebar } from "@/shared/admin/components/sidebar/SideBar";
-import { Header } from "@/shared/admin/components/header/Header";
-import { getUser } from "@/helpers/session";
-import { redirect } from "next/navigation";
+import { Roles } from '@/features/auth/roles/roles.enum'
+import { Sidebar } from '@/shared/admin/components/sidebar/SideBar'
+import { Header } from '@/shared/admin/components/header/Header'
+import { getUser } from '@/helpers/session'
+import { redirect } from 'next/navigation'
 
 export default async function AppLayout({
   children,
@@ -14,8 +15,8 @@ export default async function AppLayout({
     redirect("/auth/login");
   }
 
-  if (user.roleId !== 4) {
-    redirect("/employee/dashboard");
+  if (user.roleId !== Roles.Administrativo) {
+    redirect("/employee/dashboard")
   }
 
   return (

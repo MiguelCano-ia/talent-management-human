@@ -1,3 +1,4 @@
+import { Roles } from '@/features/auth/roles/roles.enum'
 import { RegisterForm } from "@/features/auth/components/RegiserForm";
 import { getUser } from "@/helpers/session";
 import { redirect } from "next/navigation";
@@ -9,7 +10,7 @@ export default async function Page() {
     redirect("/auth/login")
   }
 
-  if (user.roleId !== 4) {
+  if (user.roleId !== Roles.Administrativo) {
     redirect("/employee/dashboard")
   }
 

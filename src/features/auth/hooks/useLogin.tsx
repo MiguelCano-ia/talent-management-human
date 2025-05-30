@@ -15,6 +15,7 @@ export const useLogin = () => {
       }, 1000)
     },
     onError: (axiosError: AxiosError) => {
+      console.error("Error al iniciar sesión:", axiosError)
       toast.error(axiosError?.response?.data as string || "Error al iniciar sesión")
     },
   })

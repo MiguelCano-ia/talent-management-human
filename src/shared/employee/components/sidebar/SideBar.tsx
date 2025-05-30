@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Briefcase, Home } from "lucide-react";
+import { Book, Briefcase, Home } from "lucide-react";
 import clsx from "clsx";
 
 export function Sidebar() {
@@ -24,6 +24,9 @@ export function Sidebar() {
         >
           <Home className="w-5 h-5" /> Inicio
         </Link>
+        <Link href="/employee/dashboard/courses" className={linkClasses('courses')}>
+          <Book /> Cursos
+        </Link>
         <Link
           href="/employee/dashboard/job-offers"
           className={linkClasses("/employee/dashboard/job-offers")}
@@ -32,5 +35,5 @@ export function Sidebar() {
         </Link>
       </nav>
     </aside>
-  );
+  )
 }

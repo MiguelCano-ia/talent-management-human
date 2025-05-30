@@ -1,6 +1,6 @@
 "use client"
 
-import { CreateUserInput, UserRole } from "../interfaces/user.interface";
+import { CreateUserInput, Identification, UserRole } from "../interfaces/user.interface";
 import { LoginInput } from "../validations/login.validations";
 import { BranchOfOffice } from "../interfaces/branchOfOffice.interface";
 import { MeansOfPayment } from "../interfaces/meansOfPayment.interface";
@@ -28,4 +28,8 @@ export const getBranchOfOffices = async (): Promise<BranchOfOffice[]> => {
 
 export const getMeansOfPayments = async (): Promise<MeansOfPayment[]> => {
   return (await API.get("generic/meansOfPayment")).data;
+}
+
+export const getIdentificationTypes = async (): Promise<Identification[]> => {
+  return (await API.get("user/identificationTypes")).data;
 }

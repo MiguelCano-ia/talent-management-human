@@ -23,3 +23,8 @@ export interface UserState {
   stateId: number;
   state: string;
 };
+
+export interface Identification {
+  identificationTypeId: number;
+  identification: string;
+}
