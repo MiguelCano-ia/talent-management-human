@@ -51,7 +51,7 @@ export function UnpaymentsTable() {
             </div>
             {isLoading ? (
                 <div className="space-y-4">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(2)].map((_, i) => (
                         <Skeleton key={i} className="h-10 w-full rounded-md" />
                     ))}
                 </div>
@@ -69,59 +69,69 @@ export function UnpaymentsTable() {
                             <p className="px-4 py-2">N. Novedades</p>
                         </div>
                     </div>
-                    {unpayments?.map((unpayment) => (
-                        <Accordion key={uuidv4()} type="single" collapsible className="w-full border-2">
-                            <AccordionItem value="item-1">
-                                <AccordionTrigger onClick={
-                                    showDetails(unpayment.userId)
-                                } className='flex flex-row-reverse'>
-                                    <div className='basis-11/12 flex'>
-                                        <p className="ml-4">{unpayment.userId}</p>
-                                        <p className="ml-16">{unpayment.name}</p>
-                                        <p className="ml-17">{unpayment.identificacion}</p>
-                                        <p className="ml-45">{Math.min(...unpayment.payDay)}</p>
-                                        <p className="ml-45">{unpayment.faults?.length || 0}</p>
-                                        <p className="ml-45">{unpayment.novelties?.length || 0}</p>
-                                    </div>
-                                </AccordionTrigger>
-                                <AccordionContent>
+                    <Accordion
+                        type="single"
+                        collapsible
+                        className="w-full border-2"
+                        onValueChange={(value) => {
+                            if (value) {
+                                setUserId(Number(value));
+                                return;
+                            }
+                            setUserId(null);
+                        }}
+                    >
+                        {unpayments?.map((unpayment) => {
+                            return (
+                                <AccordionItem key={uuidv4()} value={String(unpayment.userId)}>
+                                    <AccordionTrigger className='flex flex-row-reverse'>
+                                        <div className='basis-11/12 flex'>
+                                            <p className="ml-4">{unpayment.userId}</p>
+                                            <p className="ml-16">{unpayment.name}</p>
+                                            <p className="ml-17">{unpayment.identificacion}</p>
+                                            <p className="ml-45">{Math.min(...unpayment.payDay)}</p>
+                                            <p className="ml-45">{unpayment.faults?.length || 0}</p>
+                                            <p className="ml-45">{unpayment.novelties?.length || 0}</p>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent>
+                                        {(isLoading || isLoadingByUserId) ? (
+                                            <div className="space-y-4">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <Skeleton key={i} className="h-10 w-full rounded-md" />
+                                                ))}
+                                            </div>
+                                        ) : (
 
-                                    <div className='flex flex-col'>
-                                        <table className="min-w-full text-sm text-left">
-                                            <thead className="bg-muted">
-                                                <tr>
-                                                    <th className="px-4 py-2">medio de pago</th>
-                                                    <th className="px-4 py-2">salario</th>
-                                                    <th className="px-4 py-2">id contrato</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {(isLoading || isLoadingByUserId) ? (
-                                                    <div className="space-y-4">
-                                                        {[...Array(5)].map((_, i) => (
-                                                            <Skeleton key={i} className="h-10 w-full rounded-md" />
-                                                        ))}
-                                                    </div>
-                                                ) : (
-                                                    <>
-                                                        {getUserId == unpayment.userId && unpaymentsByUserId?.map((userUnpayment) => (
-                                                            <tr key={uuidv4()}>
-                                                                <td className="px-4 py-2">
-                                                                    {meansOfPayments?.find(i => i.meansOfPaymentId == userUnpayment.meansOfPaymentId)?.meansOfPayment || 'No definido'}
-                                                                </td>
-                                                                <td className="px-4 py-2">{userUnpayment.salary}</td>
-                                                                <td className="px-4 py-2">{userUnpayment.contractId || "no hay contrato"}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </>
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
-                    ))}
+                                            <div className='flex flex-col'>
+                                                <table className="min-w-full text-sm text-left">
+                                                    <thead className="bg-muted">
+                                                        <tr>
+                                                            <th className="px-4 py-2">medio de pago</th>
+                                                            <th className="px-4 py-2">salario</th>
+                                                            <th className="px-4 py-2">id contrato</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <>
+                                                            {getUserId == unpayment.userId && unpaymentsByUserId?.map((userUnpayment) => (
+                                                                <tr key={uuidv4()}>
+                                                                    <td className="px-4 py-2">
+                                                                        {meansOfPayments?.find(i => i.meansOfPaymentId == userUnpayment.meansOfPaymentId)?.meansOfPayment || 'No definido'}
+                                                                    </td>
+                                                                    <td className="px-4 py-2">{userUnpayment.salary}</td>
+                                                                    <td className="px-4 py-2">{userUnpayment.contractId || "no hay contrato"}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </>
+                                                    </tbody>
+                                                </table>
+                                            </div>)}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            )
+                        })}
+                    </Accordion>
                 </section>
             )}
         </div>
