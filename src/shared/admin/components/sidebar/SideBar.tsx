@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Users, FileText, Settings, CreditCard } from 'lucide-react'
+import { Home, Users, FileText, Settings, CreditCard, DollarSign } from 'lucide-react'
 import clsx from 'clsx'
 
 export function Sidebar() {
@@ -36,8 +36,13 @@ export function Sidebar() {
         >
           <CreditCard className="w-5 h-5" /> Medios de Pago
         </Link>
-        
+        <Link
+          href="/dashboard/payments"
+          className={linkClasses('/dashboard/payments')}
+        >
+          <DollarSign className='w-5 h-5' /> Pagos
+        </Link>
       </nav>
-    </aside>  
+    </aside>
   )
 }
