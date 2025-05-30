@@ -4,7 +4,7 @@ import { getCourseByCookieUser } from '../services/course.service'
 
 export function useUserCourses() {
   return useQuery({
-    queryKey: ['courses'],
+    queryKey: ['courses', "userId"],
     queryFn: getCourseByCookieUser,
     
   })
