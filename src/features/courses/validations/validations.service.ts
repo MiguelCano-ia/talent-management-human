@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export const courseSchema = z.object({
-  educationId: z.string(),
+  educationId: z.string().optional(),
   name: z.string(),
   startDate: z.string().datetime({ message: "Fecha inválida" }),
   endDate: z.string().datetime({ message: "Fecha inválida" }).optional(),

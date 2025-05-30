@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Calendar } from "@/components/ui/calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 type CourseSkillsDialogProps = {
@@ -88,12 +88,19 @@ function AddCourseDialog() {
         to: undefined,
     });
     const { data: skillsOld, isLoading } = useHabilities();
-    const [skills, setSkill] = useState<Habilities[]>((skillsOld || []).map(i => {
-        return {
-            ...i,
-            isActive: false
+    const [skills, setSkill] = useState<Habilities[]>([]);
+    useEffect(()=>{
+        if (skillsOld) {
+            const updatedSkills = skillsOld.map(skill => ({
+                ...skill,
+                isActive: false,
+            }));
+            setSkill(updatedSkills);
+            setValue("habilities", []);
         }
-    }));
+    }, [skillsOld]);
+    console.log("Skills:", skills);
+    console.log("Skills Old:", skillsOld);
     const mutation = useCreateCourse();
     const onSubmit = async (data: Course) => {
         console.log("=== FORM SUBMISSION STARTED ===");

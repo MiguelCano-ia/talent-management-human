@@ -5,7 +5,7 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 export const APIAuth = axios.create({
-  baseURL: process.env.API_URL || "http://localhost:3000/api/v1/",
+  baseURL: process.env.API_URL || "http://localhost:3001/api/v1/",
   headers: {
     "Content-Type": "application/json",
   },
