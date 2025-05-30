@@ -87,9 +87,9 @@ function AddCourseDialog() {
         from: undefined,
         to: undefined,
     });
-    const { data: skillsOld, isLoading } = useHabilities();
+    const { data: skillsOld, isLoading, refetch } = useHabilities();
     const [skills, setSkill] = useState<Habilities[]>([]);
-    useEffect(()=>{
+    useEffect(() => {
         if (skillsOld) {
             const updatedSkills = skillsOld.map(skill => ({
                 ...skill,
@@ -99,13 +99,10 @@ function AddCourseDialog() {
             setValue("habilities", []);
         }
     }, [skillsOld]);
-    console.log("Skills:", skills);
-    console.log("Skills Old:", skillsOld);
     const mutation = useCreateCourse();
     const onSubmit = async (data: Course) => {
-        console.log("=== FORM SUBMISSION STARTED ===");
-        console.log("Form data:", data);
         mutation.mutate(data);
+        refetch();
     }
     return (
         <Dialog onOpenChange={() => { }}>
@@ -152,21 +149,16 @@ function AddCourseDialog() {
                                     }
                                     onSelect={(value: any) => {
                                         if (value) {
-                                            console.log(value.from, value.to);
                                             setDateRange(value);
-                                            setValue("startDate", value.from?.toISOString() || "");
-                                            setValue("endDate", value.to?.toISOString() || "");
+                                            setValue("startDate", (value.from as Date)?.toISOString().split("T")[0] || "");
+                                            setValue("endDate", (value.to as Date)?.toISOString().split("T")[0] || "");
                                             clearErrors("startDate");
                                             clearErrors("endDate");
                                         }
                                     }}
                                 />
                             </div>
-                            {errors.startDate && (
-                                <p className="text-destructive text-sm">
-                                    {errors.startDate.message}
-                                </p>
-                            )}
+
                         </div>
                         <div>
                             {isLoading ? (
@@ -202,11 +194,12 @@ function AddCourseDialog() {
                                                                     });
                                                                     setSkill(updatedSkills);
                                                                     const currentSkills = getValues("habilities") || [];
-                                                                    if (checked) {
-                                                                        setValue("habilities", [...currentSkills, skill.id]);
-                                                                    } else {
-                                                                        setValue("habilities", currentSkills.filter(id => id !== skill.id));
-                                                                    }
+                                                                    if (skill.habilityId)
+                                                                        if (checked) {
+                                                                            setValue("habilities", [...currentSkills, Number(skill.habilityId)]);
+                                                                        } else {
+                                                                            setValue("habilities", currentSkills.filter(id => id !== Number(skill.habilityId)));
+                                                                        }
                                                                 }}
                                                             />
                                                         </td>
@@ -219,7 +212,7 @@ function AddCourseDialog() {
                             )}
                             <div className="mt-4 flex justify-end">
                                 <Button
-                                 
+
                                     className="bg-primary text-white hover:bg-primary/90 cursor-pointer"
                                     type="submit"
                                 >
@@ -261,13 +254,13 @@ export function AdminCourses() {
                             </tr>
                         </thead>
                         <tbody>
-                            {courses?.map((emp, idx) => (
+                            {courses?.map((course, idx) => (
                                 <tr key={idx} className="border-t">
-                                    <td className="px-4 py-2">{emp.name}</td>
-                                    <td className="px-4 py-2">{emp.startDate}</td>
-                                    <td className="px-4 py-2">{emp.endDate}</td>
+                                    <td className="px-4 py-2">{course.name}</td>
+                                    <td className="px-4 py-2">{course.startDate}</td>
+                                    <td className="px-4 py-2">{course.endDate}</td>
                                     <td className="px-4 py-2">
-                                        <CourseSkillsDialog habilities={emp.habilities} />
+                                        <CourseSkillsDialog habilities={course.habilities || []} />
                                     </td>
                                 </tr>
                             ))}

@@ -16,7 +16,6 @@ export const getEmployees = async (data: EmployeeInput): Promise<Employee[]> => 
     }
   }
   filter = filter ? `?${filter}` : '';
-  console.log('Filter:', filter);
   const response = await APIAuth.get(`user/filters${filter}`)
   if (!response.data) {
     return [];

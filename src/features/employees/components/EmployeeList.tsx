@@ -45,10 +45,8 @@ export function EmployeeList() {
   })
 
   const onSubmit = (data: EmployeeInput) => {
-    console.log('Form Data:', data)
     setFormData(data)
   }
-  console.log(isLoading)
 
   const { data: roles = [] } = useGetRoles();
 

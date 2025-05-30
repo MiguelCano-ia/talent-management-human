@@ -37,7 +37,6 @@ export function UnpaymentsTable() {
     const showDetails = (data: number | null) => {
         return (e: React.MouseEvent<HTMLButtonElement>) => {
             if (getUserId !== data) {
-                console.log("showDetails", data);
                 setUserId(data);
             }
         };

@@ -2,10 +2,10 @@ import { z } from "zod"
 
 export const courseSchema = z.object({
   educationId: z.string().optional(),
-  name: z.string(),
-  startDate: z.string().datetime({ message: "Fecha inválida" }),
-  endDate: z.string().datetime({ message: "Fecha inválida" }).optional(),
-  habilities: z.array(z.number()),
+  name: z.string().optional(),
+  startDate: z.string().date().optional(),
+  endDate: z.string().date().optional(),
+  habilities: z.array(z.any()).optional(),
 })
 
 export const habilitiesSchema = z.object({
