@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -13,9 +13,9 @@ export function Sidebar() {
   
   const linkClasses = (path: string) =>
     clsx(
-      'flex items-center gap-2 py-2 px-3 rounded-md transition-colors',
-      pathname === path && 'bg-primary text-secondary font-semibold'
-    )
+      "flex items-center gap-2 py-2 px-3 rounded-md transition-colors",
+      pathname === path && "bg-primary text-secondary font-semibold"
+    );
 
   return (
     <aside className="w-64 bg-accent border-border hidden md:flex flex-col justify-between">

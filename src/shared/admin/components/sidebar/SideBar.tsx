@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Users, FileText, Settings, CreditCard, LogOut } from 'lucide-react'
+
+import { Home, Users, FileText, Settings, CreditCard, DollarSign, Book } from 'lucide-react'
 import clsx from 'clsx'
 import { startTransition, useActionState } from 'react'
 import { signout } from '@/features/auth/actions/signout'
@@ -18,6 +19,7 @@ export function Sidebar() {
     )
 
   return (
+
     <aside className="w-64 bg-accent border-r border-border hidden md:flex flex-col justify-between">
       <div>
         <div className="p-6 font-bold text-xl text-primary">RH Total</div>
