@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home } from 'lucide-react'
+import { Book, Home } from 'lucide-react'
 import clsx from 'clsx'
 
 export function Sidebar() {
@@ -11,7 +11,7 @@ export function Sidebar() {
   const linkClasses = (path: string) =>
     clsx(
       'flex items-center gap-2 py-2 px-3 rounded-md transition-colors',
-      pathname === path && 'bg-primary text-secondary font-semibold'
+      pathname === `/employee/${path}` && 'bg-primary text-secondary font-semibold'
     )
 
   return (
@@ -20,8 +20,11 @@ export function Sidebar() {
       <nav className="flex flex-col gap-1 px-4">
         <Link href="/dashboard" className={linkClasses('/dashboard')}>
           <Home className="w-5 h-5" /> Inicio
-        </Link>    
+        </Link>
+        <Link href="/employee/dashboard/courses" className={linkClasses('courses')}>
+          <Book /> Cursos
+        </Link>
       </nav>
-    </aside>  
+    </aside>
   )
 }
