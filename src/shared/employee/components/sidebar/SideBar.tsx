@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, LogOut } from 'lucide-react'
+import { Book, Home, LogOut } from 'lucide-react'
 import clsx from 'clsx'
 import { signout } from '@/features/auth/actions/signout'
 import { useActionState, startTransition } from 'react'
@@ -22,9 +22,12 @@ export function Sidebar() {
       <div>
         <div className="p-6 font-bold text-xl text-primary">RH Total</div>
         <nav className="flex flex-col gap-1 px-4">
-          <Link href="/dashboard" className={linkClasses('/dashboard')}>
+          <Link href="/employee/dashboard" className={linkClasses('/employee/dashboard')}>
             <Home className="w-5 h-5" /> Inicio
           </Link>
+          <Link href="/employee/dashboard/courses" className={linkClasses('/employee/dashboard/courses')}>
+            <Book className="w-5 h-5" /> Cursos
+        </Link>
         </nav>
       </div>
       <div className="px-4 py-4 border-t border-border">

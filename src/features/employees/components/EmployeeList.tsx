@@ -55,7 +55,7 @@ export function EmployeeList() {
   return (
     <div className="max-w-7xl mx-auto mt-10 space-y-6">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col m-10 gap-2">
-        <div className='flex flex-row flex-wrap justify-around'>
+        <div className='flex flex-row flex-wrap justify-between'>
           <div className="flex flex-col basis-sm">
             <div>
               <Label htmlFor="name" className="mb-2">
@@ -65,6 +65,7 @@ export function EmployeeList() {
                 {...register("name")}
                 id="name"
                 placeholder="Ingrese su nombre"
+                className='w-full'
                 onChange={(e) => {
                   setValue("name", e.target.value);
                   clearErrors("name");
@@ -102,8 +103,8 @@ export function EmployeeList() {
             </Select>
           </div>
         </div>
-        <div className='flex justify-center items-center'>
-          <Button className="w-md p-2 bg-primary text-white hover:bg-primary/90 cursor-pointer" type="submit" disabled={isLoading}>
+        <div className='flex justify-center items-center w-full'>
+          <Button className="w-md p-2 bg-primary text-white hover:bg-primary/90 cursor-pointer w-full" type="submit" disabled={isLoading}>
             {isLoading ? "buscando..." : "Buscar"}
           </Button>
         </div>

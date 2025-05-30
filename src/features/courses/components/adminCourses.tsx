@@ -1,4 +1,5 @@
 "use client"
+
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,9 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
-import { set } from "date-fns";
-import { use, useState } from "react";
+import { useState } from "react";
 
 
 type CourseSkillsDialogProps = {
@@ -97,13 +96,14 @@ function AddCourseDialog() {
     }));
     const mutation = useCreateCourse();
     const onSubmit = async (data: Course) => {
+        console.log("=== FORM SUBMISSION STARTED ===");
         console.log("Form data:", data);
-        // mutation.mutate(data);
+        mutation.mutate(data);
     }
     return (
         <Dialog onOpenChange={() => { }}>
             <DialogTrigger asChild>
-                <Button className="p-2 bg-primary text-white hover:bg-primary/90 cursor-pointer">
+                <Button className="p-2 bg-primary text-white hover:bg-primary/90 cursor-pointer mb-5">
                     Agregar Curso
                 </Button>
             </DialogTrigger>
@@ -112,7 +112,7 @@ function AddCourseDialog() {
                 <DialogDescription>
                     Lista de habilidades asociadas a este curso.
                 </DialogDescription>
-                <form className="w-full">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-full">
                     <div className="flex flex-col gap-4">
                         <div>
                             <Label htmlFor="name" className="mb-2">
@@ -212,10 +212,9 @@ function AddCourseDialog() {
                             )}
                             <div className="mt-4 flex justify-end">
                                 <Button
-                                    onClick={()=>{
-                                        console.log("Skills selected:", getValues("habilities"));
-                                    }}
-                                    className="bg-primary text-white hover:bg-primary/90"
+                                 
+                                    className="bg-primary text-white hover:bg-primary/90 cursor-pointer"
+                                    type="submit"
                                 >
                                     {mutation.isPending ? "Creando..." : "Crear Curso"}
                                 </Button>

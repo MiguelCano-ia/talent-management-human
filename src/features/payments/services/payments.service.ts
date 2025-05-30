@@ -1,3 +1,5 @@
+"use server"
+
 import { Unpayment } from "../validations/unpayment.validations";
 import { API } from "@/config/api";
 
