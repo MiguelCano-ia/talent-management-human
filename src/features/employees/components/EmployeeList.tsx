@@ -109,9 +109,9 @@ export function EmployeeList() {
         </div>
       </form>
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold text-primary">Empleados</h2>
+        <h2 className="text-xl font-bold text-primary">Personal</h2>
         <Link href="/auth/register">
-          <Button className="bg-primary text-secondary cursor-pointer">Agregar empleado</Button>
+          <Button className="bg-primary text-secondary cursor-pointer">Agregar personal</Button>
         </Link>
       </div>
 
