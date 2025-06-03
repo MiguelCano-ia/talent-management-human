@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { Home, Users, FileText, Settings, CreditCard, DollarSign, Book, LogOut } from 'lucide-react'
+import { Home, Users, FileText, Settings, CreditCard, DollarSign, Book, LogOut, Building2 } from 'lucide-react'
 import clsx from 'clsx'
 import { startTransition, useActionState } from 'react'
 import { signout } from '@/features/auth/actions/signout'
@@ -42,7 +42,7 @@ export function Sidebar() {
           >
             <CreditCard className="w-5 h-5" /> Medios de Pago
           </Link>
-            <Link
+          <Link
             href="/dashboard/payments"
             className={linkClasses('/dashboard/payments')}
           >
@@ -50,6 +50,9 @@ export function Sidebar() {
           </Link>
           <Link href="/dashboard/courses" className={linkClasses('/dashboard/courses')}>
             <Book className="w-5 h-5" /> Cursos
+          </Link>
+          <Link href="/dashboard/configuration/companies" className={linkClasses('/dashboard/configuration/companies')}>
+            <Building2 /> Compañias
           </Link>
         </nav>
       </div>
@@ -62,6 +65,6 @@ export function Sidebar() {
           <LogOut className="w-4 h-4" /> Cerrar sesión
         </button>
       </div>
-    </aside>  
+    </aside>
   )
 }
