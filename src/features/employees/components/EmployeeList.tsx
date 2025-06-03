@@ -102,7 +102,7 @@ export function EmployeeList() {
           </div>
         </div>
         <div className='flex justify-center items-center w-full'>
-          <Button className="w-md p-2 bg-primary text-white hover:bg-primary/90 cursor-pointer w-full" type="submit" disabled={isLoading}>
+          <Button className="p-2 bg-primary text-white hover:bg-primary/90 cursor-pointer w-full" type="submit" disabled={isLoading}>
             {isLoading ? "buscando..." : "Buscar"}
           </Button>
         </div>
